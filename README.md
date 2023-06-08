@@ -1,5 +1,5 @@
-# beonExerciseVictorEscobar
-Exercises from technical assesment from Victor Escobar
+# Beon assessment
+Exercises from technical assessment from Victor Escobar
 
 ## Notes:
 1. The exercise 1, 2, 3 and 4 are found under the request "Retrieve list of users" in the test tab. 
