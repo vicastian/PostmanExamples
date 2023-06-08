@@ -13,7 +13,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test('Validate status code', function () {\r",
+							"pm.test('Validate status code of retrieve list of users', function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
 							"\r",
@@ -25,7 +25,6 @@
 							"\r",
 							"pm.test('Validate that each user has unique data', function () {\r",
 							"    var usersList = JSON.parse(pm.environment.get(\"users_list\"));\r",
-							"    //console.log(usersList);\r",
 							"    var listOfIds = [];\r",
 							"    var listOfEmails = [];\r",
 							"    var listOfFirstNames = [];\r",
@@ -38,6 +37,11 @@
 							"        listOfLastNames[i] = usersList[i].last_name;\r",
 							"    };\r",
 							"    \r",
+							"    pm.environment.set(\"user_id\", listOfIds[0]);\r",
+							"    pm.environment.set(\"user_firstname\", listOfFirstNames[0]);\r",
+							"    pm.environment.set(\"user_lastname\", listOfLastNames[0]);\r",
+							"    pm.environment.set(\"user_email\", listOfEmails[0]);\r",
+							"\r",
 							"    pm.expect(containsDuplicates(listOfIds)).to.be.false;\r",
 							"    pm.expect(containsDuplicates(listOfEmails)).to.be.false;\r",
 							"    pm.expect(containsDuplicates(listOfFirstNames)).to.be.false;\r",
@@ -67,6 +71,89 @@
 					],
 					"path": [
 						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Validate status code of get user by id', function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify response body contains user information\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"user_firstname\"));\r",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"user_lastname\"));\r",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"user_email\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/users/{{user_id}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"{{user_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Validate status code of create new user', function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify response body contains user information\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"new_user_firstname\"));\r",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"new_user_lastname\"));\r",
+							"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"new_user_email\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"email\": \"{{new_user_email}}\",\r\n        \"first_name\": \"{{new_user_firstname}}\",\r\n        \"last_name\": \"{{new_user_lastname}}\",\r\n        \"avatar\": \"https://reqres.in/img/faces/1-image.jpg\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/users/",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						""
 					]
 				}
 			},
