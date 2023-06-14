@@ -14,8 +14,8 @@ Your task is to create an automated test script using Postman that performs the 
 1. Send a GET request to the ReqRes API endpoint `/users` to retrieve a list of users.
 2. Validate the response status code to ensure it is a successful response (e.g., 200 OK).
 3. Validate the response body to ensure it meets the following criteria:
-- The response should contain an array of users.
-- Each user should have a unique `id`, `email`, `first_name`, and `last_name`.
+  - The response should contain an array of users.
+  - Each user should have a unique `id`, `email`, `first_name`, and `last_name`.
 4. Extract the value of the `id` from one of the users in the response and store it as a variable.
 5. Send a GET request to the ReqRes API endpoint `/users/{id}`, where `{id}` is the extracted
 user ID from step 4.
@@ -28,10 +28,11 @@ necessary request body with the user's information (e.g., `email`, `first_name`,
 Created).
 10. Validate the response body to ensure it contains the newly created user's information.
 Your solution should include:
-- A Postman collection with the test script that performs the steps mentioned above.
-- Test assertions to validate the expected responses and conditions.
-- Usage of variables and environment configurations as needed.
-- Appropriate error handling and reporting in case of failures.
+  - A Postman collection with the test script that performs the steps mentioned above.
+  - Test assertions to validate the expected responses and conditions.
+  - Usage of variables and environment configurations as needed.
+  - Appropriate error handling and reporting in case of failures.
+
 Please provide your automated test script using Postman for this API testing challenge, including
 any necessary documentation or notes to explain your approach and reasoning in a
 README.md file.
